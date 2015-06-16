@@ -59,8 +59,6 @@ static NSString *const VDUBStoreName = @"vdub.sqlite";
 
 - (void)setupCoreDataStackWithURL:(NSURL *)storeURL
 {
-	storeURL = [storeURL URLByAppendingPathComponent:VDUBStoreName];
-
 	NSLog(@"opening %@", storeURL);
 	
 	NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption : @YES,
