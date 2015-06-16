@@ -7,7 +7,7 @@
 
 #import <CoreData/CoreData.h>
 
-@interface NSManagedObject (VLA)
+@interface NSManagedObject (VDUB)
 
 + (id)createInContext:(NSManagedObjectContext *)context;
 
