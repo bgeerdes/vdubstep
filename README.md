@@ -23,7 +23,8 @@ mmo.name = @"A Name";
 
 // ...
 
-NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" 
+                                                                 ascending:YES];
 NSArray *mmos = [MyManagedObject findAllWithSortDescriptors:@[ sortDescriptor ] 
                                                   inContext:[VDUBStore mainContext]];
 
