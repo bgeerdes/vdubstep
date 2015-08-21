@@ -16,7 +16,9 @@ static NSString *const VDUBStoreName = @"vdub.sqlite";
 {
 	NSManagedObjectModel *_model;
 	NSPersistentStoreCoordinator *_coordinator;	
+
 	NSManagedObjectContext *_mainContext;
+	NSManagedObjectContext *_backgroundContext;
 }
 
 + (void)initialize
@@ -34,6 +36,11 @@ static NSString *const VDUBStoreName = @"vdub.sqlite";
 + (NSManagedObjectContext *)mainContext
 {
 	return [[self sharedInstance] mainContext];
+}
+
++ (NSManagedObjectContext *)backgroundContext
+{
+	return [[self sharedInstance] backgroundContext];
 }
 
 #pragma mark -
@@ -96,18 +103,26 @@ static NSString *const VDUBStoreName = @"vdub.sqlite";
 	return _mainContext;
 }
 
-//- (void)contextDidSave:(NSNotification *)notification
-//{
-//	NSDictionary *userInfo = [notification userInfo];
-//	// arguments casted so importer target doesn't flag them with a warning
-//	DNSLog(@"merging changes into main: %ld inserted, %ld updated, %ld deleted",
-//				 (long)[[userInfo objectForKey:@"inserted"] count],
-//				 (long)[[userInfo objectForKey:@"updated"] count],
-//				 (long)[[userInfo objectForKey:@"deleted"] count]);
-//	
-//	[_mainContext performBlock:^{
-//		[_mainContext mergeChangesFromContextDidSaveNotification:notification];
-//	}];
-//}
+- (NSManagedObjectContext *)backgroundContext
+{
+	if (!_backgroundContext) {
+		_backgroundContext = [[NSManagedObjectContext alloc] init];
+		[_backgroundContext setPersistentStoreCoordinator:[self coordinator]];
+
+		// listen for notification to merge background context changes into main context
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contextDidSave:)
+													 name:NSManagedObjectContextDidSaveNotification
+												   object:_backgroundContext];
+	}
+
+	return _backgroundContext;
+}
+
+- (void)contextDidSave:(NSNotification *)notification
+{
+	[_mainContext performBlock:^{
+		[_mainContext mergeChangesFromContextDidSaveNotification:notification];
+	}];
+}
 
 @end
