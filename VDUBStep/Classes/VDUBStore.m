@@ -109,22 +109,5 @@ static NSString *const VDUBStoreName = @"vdub.sqlite";
 //		[_mainContext mergeChangesFromContextDidSaveNotification:notification];
 //	}];
 //}
-//
-//#pragma mark -
-//
-//- (BOOL)save
-//{
-//	BOOL success;
-//	
-//	DNSLog(@"saving in %@", [NSThread isMainThread] ? @"main" : @"background");
-//	
-//	NSError *error = nil;
-//	success = [[self context] save:&error];
-//	if (!success) {
-//		DNSLog(@"%@", error.localizedDescription);
-//	}
-//	
-//	return success;
-//}
 
 @end

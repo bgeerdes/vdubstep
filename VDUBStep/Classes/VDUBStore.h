@@ -18,7 +18,4 @@
 
 - (NSManagedObjectContext *)mainContext;
 
-//- (NSManagedObjectContext *)context; // context of current thread
-//- (BOOL)save;
-
 @end
