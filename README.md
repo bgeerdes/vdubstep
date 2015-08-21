@@ -1,6 +1,6 @@
 VDUBStep is a lightweight framework that wraps Core Data's NSManagedObjectModel, NSPersistentStoreCoordinator and NSManagedObjectContext into a utility class, VDUBStore.
 
-Set-up:
+Set up in _AppDelegate.m_:
 
 ```
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
@@ -14,22 +14,38 @@ Set-up:
 }
 ```
 
-The framework also provides convenience methods for NSManagedObject and NSManagedObjectContext:
+The framework also provides convenience methods for NSManagedObject and NSManagedObjectContext.
+
+Create an instance of MyManagedObject:
 
 ```
 MyManagedObject *mmo = [MyManagedObject createInContext:[VDUBStore mainContext]]]];
+mmo.uniqueID = @1;
 mmo.name = @"A Name";
 [[VDUBStore mainContext] save];
+```
 
-// ...
+Get a MyManagedObject by ID:
 
+```
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"uniqueID = %d", 1];
+MyManagedObject *mmo = [MyManagedObject findFirstWithPredicate:predicate inContext:[VDUBStore mainContext]];
+mmo.name = @"Another name";
+[[VDUBStore mainContext] save];
+```
+
+Get array of all MyManagedObjects sorted by name:
+
+```
 NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" 
                                                                  ascending:YES];
 NSArray *mmos = [MyManagedObject findAllWithSortDescriptors:@[ sortDescriptor ] 
                                                   inContext:[VDUBStore mainContext]];
+```
 
-// ...
+Delete an instance of MyManagedObject:
 
+```
 [mmo delete];
 [[VDUBStore mainContext] save];
 ```
