@@ -16,6 +16,4 @@
 
 - (void)setupCoreDataStackWithURL:(NSURL *)storeURL;
 
-- (NSManagedObjectContext *)mainContext;
-
 @end
