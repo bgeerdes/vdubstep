@@ -67,15 +67,16 @@ static NSString *const VDUBStoreName = @"vdub.sqlite";
 	if (![[self coordinator] addPersistentStoreWithType:NSSQLiteStoreType configuration:nil
 													URL:storeURL options:options error:&error])
 	{
-		NSLog(@"error opening persistant store, removing");
+		NSLog(@"error opening persistent store, removing (%@)", error);
 		
 		error = nil;
 		if (![[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error]) {
-			NSLog(@"error removing persistant store %@, giving up", storeURL);
-		} else if (![[self coordinator] addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL
+			NSLog(@"error removing persistent store, giving up (%@)", error);
+		} else if (![[self coordinator] addPersistentStoreWithType:NSSQLiteStoreType
+													 configuration:nil URL:storeURL
 														   options:options error:&error])
 		{
-			NSLog(@"error opening persistant store, giving up");
+			NSLog(@"error opening persistent store, giving up (%@)", error);
 		}
 	}
 	
