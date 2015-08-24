@@ -33,6 +33,11 @@ static NSString *const VDUBStoreName = @"vdub.sqlite";
 	return _sharedInstance;
 }
 
++ (void)setupCoreDataStackWithURL:(NSURL *)storeURL
+{
+	return [[self sharedInstance] setupCoreDataStackWithURL:storeURL];
+}
+
 + (NSManagedObjectContext *)mainContext
 {
 	return [[self sharedInstance] mainContext];
