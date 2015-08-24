@@ -25,6 +25,7 @@
 + (id)findFirstWithSortDescriptors:(NSArray *)sortDescriptors inContext:(NSManagedObjectContext *)context;
 
 + (NSUInteger)countAllInContext:(NSManagedObjectContext *)context;
++ (NSUInteger)countAllWithPredicate:(NSPredicate *)predicate inContext:(NSManagedObjectContext *)context;
 
 - (void)delete;
 

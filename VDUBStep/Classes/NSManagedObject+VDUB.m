@@ -102,7 +102,13 @@
 
 + (NSUInteger)countAllInContext:(NSManagedObjectContext *)context
 {
+	return [self countAllWithPredicate:nil inContext:context];
+}
+
++ (NSUInteger)countAllWithPredicate:(NSPredicate *)predicate inContext:(NSManagedObjectContext *)context
+{
 	NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[self entityName]];
+	request.predicate = predicate;
 	
 	NSError *error = nil;
 	NSUInteger count = [context countForFetchRequest:request error:&error];
