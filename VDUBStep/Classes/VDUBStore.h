@@ -12,10 +12,9 @@
 
 + (VDUBStore *)sharedInstance;
 
++ (void)setupCoreDataStackWithURL:(NSURL *)storeURL;
+
 + (NSManagedObjectContext *)mainContext;
-
-- (void)setupCoreDataStackWithURL:(NSURL *)storeURL;
-
-- (NSManagedObjectContext *)mainContext;
++ (NSManagedObjectContext *)backgroundContext;
 
 @end
